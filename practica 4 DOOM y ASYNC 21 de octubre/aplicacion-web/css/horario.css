@@ -1,0 +1,92 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f6fa;
+    color: #333;
+    display: grid;
+    grid-template-areas: 
+    "header header"
+    "listado-lineas main"
+    "footer footer";
+    grid-template-columns: 15% 80%  ;
+    grid-template-rows: auto;
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header nav {
+    width: 80%;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.listado-lineas nav h2{
+    text-align: left;
+    margin-left: 10px;
+}
+
+.listado-lineas nav ul{
+    list-style: none;
+}
+
+.listado-lineas nav ul li a{
+    display: grid;
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background: #fff;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background: #f1f1f1;
+}
+
+main{
+    grid-area: main;
+}
+
+footer{
+    grid-area: footer;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    color: #777;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+}

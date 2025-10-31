@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro Admin</title>
+  <script src="../../scripts/validaciones.js" defer></script>
+  <link rel="stylesheet" href="../../css/horario.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="../../assets/logo.jpg" alt="Icono Bus" width="100">
+      <h2>Visor de rutas</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../pagina_principal.html">Inicio</a></li>
+        <li><a href="../paginas/listado_rutas.html">Rutas</a></li>
+        <li><a href="../paginas/horarios.html">Horarios</a></li>
+        <li><a href="">Registrarse</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <form id="registroFormAdmin">
+      <h2>Registro</h2>
+
+      <h3>Nombres</h3>
+      <input type="text" id="nombre1" name="nombre1" placeholder="Primer Nombre, Segundo Nombre" required>
+      <button type="button" id="btnNombres">Verificar</button>
+
+      <h3>Apellidos</h3>
+      <input type="text" id="apellidos" name="apellidos" placeholder="Ejemplo: Pérez Gómez" required>
+      <button type="button" id="btnApellidos">Verificar</button>
+
+      <h3>Contraseña</h3>
+      <input type="password" id="contrasena1" name="contrasena1" placeholder="Contraseña" required>
+      <input type="password" id="contrasena2" name="contrasena2" placeholder="Repetir contraseña" required>
+      <button type="button" id="btnContrasenas">Verificar</button>
+
+      <h3>Correo electrónico</h3>
+      <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+      <button type="button" id="btnCorreo">Verificar</button>
+
+      <br><br>
+      <button type="submit">Registrar</button>
+    </form>
+  </main>
+
+  <footer>
+    <h4>© 2025 Visor de rutas. Todos los derechos reservados.</h4>
+  </footer>
+</body>
+</html>
