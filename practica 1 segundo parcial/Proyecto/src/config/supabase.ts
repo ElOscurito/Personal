@@ -1,0 +1,3 @@
+const URL_SUPABASE = 'https://gldegxnndwmdkwwaepbp.supabase.co';
+const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdsZGVneG5uZHdtZGt3d2FlcGJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzMTA2MDgsImV4cCI6MjA4MDg4NjYwOH0.4S6rIDJ211szreUIaeegUF0PZrB773RQcsfYumbT8jA';
+export {URL_SUPABASE, API_KEY};
