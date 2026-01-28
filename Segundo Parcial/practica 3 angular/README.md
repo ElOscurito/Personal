@@ -25,7 +25,7 @@ Angular entra en un estado inconsistente:
 Al agregar `provideZoneChangeDetection` sin Zone.js, aparece:
 
 ```
-RuntimeError: NG0908: In this configuration Angular requires Zone.js
+RuntimeErro: NG0908: In this configuration Angular requires Zone.js
 ```
 
 Esto indica que **Angular espera Zone.js pero no lo encuentra cargado**.
