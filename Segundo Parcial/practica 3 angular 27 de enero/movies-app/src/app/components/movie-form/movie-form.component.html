@@ -1,0 +1,161 @@
+<div class="form-container">
+  <header class="form-header">
+    <a routerLink="/movies" class="back-link">← Volver a películas</a>
+    <h1>{{ isEditMode ? 'Editar Película' : 'Nueva Película' }}</h1>
+  </header>
+
+  @if (loading) {
+    <p class="loading">Cargando datos...</p>
+  } @else {
+    <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="movie-form">
+      
+      <!-- SECCIÓN 1: INFORMACIÓN BÁSICA -->
+      <section class="form-section">
+        <h2 class="section-title">Información Básica</h2>
+        
+        <!-- Campo Título -->
+        <div class="form-group">
+          <label for="title">Título *</label>
+          <input
+            type="text"
+            id="title"
+            formControlName="title"
+            [class.error]="isFieldInvalid('title')"
+            placeholder="Ej: Inception"
+          />
+          @if (isFieldInvalid('title')) {
+            <span class="error-message">{{ getErrorMessage('title') }}</span>
+          }
+        </div>
+
+        <!-- Campo URL de Imagen -->
+        <div class="form-group">
+          <label for="image">URL de la Imagen *</label>
+          <input
+            type="url"
+            id="image"
+            formControlName="image"
+            [class.error]="isFieldInvalid('image')"
+            placeholder="https://ejemplo.com/imagen.jpg"
+          />
+          @if (isFieldInvalid('image')) {
+            <span class="error-message">{{ getErrorMessage('image') }}</span>
+          }
+          @if (movieForm.get('image')?.value && movieForm.get('image')?.valid) {
+            <div class="image-preview">
+              <img [src]="movieForm.get('image')?.value" alt="Preview" />
+            </div>
+          }
+        </div>
+
+        <!-- Campo Descripción -->
+        <div class="form-group">
+          <label for="description">Descripción *</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            [class.error]="isFieldInvalid('description')"
+            placeholder="Describe la película..."
+            rows="4"
+          ></textarea>
+          @if (isFieldInvalid('description')) {
+            <span class="error-message">{{ getErrorMessage('description') }}</span>
+          }
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: CATEGORÍA -->
+      <section class="form-section">
+        <h2 class="section-title">Categoría</h2>
+        
+        <div class="form-group">
+          <label for="category_id">Categoría *</label>
+          <div class="input-with-button">
+            <select
+              id="category_id"
+              formControlName="category_id"
+              [class.error]="isFieldInvalid('category_id')"
+            >
+              <option value="">Selecciona una categoría</option>
+              @for (category of categories; track category.id) {
+                <option [value]="category.id">{{ category.name }}</option>
+              }
+            </select>
+            <button
+              type="button"
+              class="btn-add"
+              (click)="goToNewCategory()"
+              title="Crear nueva categoría"
+            >
+              + Nueva
+            </button>
+          </div>
+          @if (isFieldInvalid('category_id')) {
+            <span class="error-message">{{ getErrorMessage('category_id') }}</span>
+          }
+          @if (categories.length === 0) {
+            <p class="info-message">No hay categorías. Crea una nueva.</p>
+          }
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: ACTORES -->
+      <section class="form-section">
+        <h2 class="section-title">Actores</h2>
+        
+        @if (!isEditMode) {
+          <p class="info-message">Guarda la película primero para poder agregar actores.</p>
+        } @else {
+          <div class="actors-section">
+            <button
+              type="button"
+              class="btn-add-actor"
+              (click)="goToAddActor()"
+            >
+              + Agregar Actor
+            </button>
+
+            @if (movieActors.length > 0) {
+              <div class="actors-list">
+                @for (actor of movieActors; track actor.id) {
+                  <div class="actor-item">
+                    <span class="actor-name">{{ actor.name }}</span>
+                    <button
+                      type="button"
+                      class="btn-remove"
+                      (click)="removeActor(actor.id)"
+                      title="Remover actor"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                }
+              </div>
+            } @else {
+              <p class="info-message">No hay actores agregados aún.</p>
+            }
+          </div>
+        }
+      </section>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="form-actions">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="btn-cancel"
+          [disabled]="submitting"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="submitting"
+        >
+          {{ submitting ? 'Guardando...' : (isEditMode ? 'Actualizar' : 'Crear') }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

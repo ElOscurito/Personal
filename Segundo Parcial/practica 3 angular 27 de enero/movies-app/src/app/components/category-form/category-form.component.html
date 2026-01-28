@@ -1,0 +1,43 @@
+<div class="form-container">
+  <header class="form-header">
+    <h1>Nueva Categoría</h1>
+    <p class="subtitle">Crea una nueva categoría para tus películas</p>
+  </header>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form">
+    <!-- Campo Nombre -->
+    <div class="form-group">
+      <label for="name">Nombre de la Categoría *</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        [class.error]="isFieldInvalid('name')"
+        placeholder="Ej: Acción, Drama, Comedia..."
+        autofocus
+      />
+      @if (isFieldInvalid('name')) {
+        <span class="error-message">{{ getErrorMessage('name') }}</span>
+      }
+    </div>
+
+    <!-- Botones -->
+    <div class="form-actions">
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="btn-cancel"
+        [disabled]="submitting"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="submitting"
+      >
+        {{ submitting ? 'Guardando...' : 'Crear Categoría' }}
+      </button>
+    </div>
+  </form>
+</div>

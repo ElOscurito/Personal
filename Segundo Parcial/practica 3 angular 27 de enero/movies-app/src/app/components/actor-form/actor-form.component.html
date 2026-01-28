@@ -1,0 +1,84 @@
+<div class="form-container">
+  <header class="form-header">
+    <h1>Agregar Actor</h1>
+    <p class="subtitle">Selecciona un actor existente o crea uno nuevo</p>
+  </header>
+
+  @if (loading) {
+    <p class="loading">Cargando actores...</p>
+  } @else {
+    <form [formGroup]="actorForm" (ngSubmit)="onSubmit()" class="actor-form">
+      
+      <!-- Toggle entre seleccionar existente o crear nuevo -->
+      <div class="toggle-section">
+        <button
+          type="button"
+          class="toggle-btn"
+          [class.active]="!showNewActorForm"
+          (click)="showNewActorForm = false"
+        >
+          Seleccionar Existente
+        </button>
+        <button
+          type="button"
+          class="toggle-btn"
+          [class.active]="showNewActorForm"
+          (click)="toggleNewActorForm()"
+        >
+          Crear Nuevo
+        </button>
+      </div>
+
+      @if (!showNewActorForm) {
+        <!-- Seleccionar actor existente -->
+        <div class="form-group">
+          <label for="selectedActorId">Selecciona un Actor</label>
+          <select
+            id="selectedActorId"
+            formControlName="selectedActorId"
+            class="actor-select"
+          >
+            <option value="">-- Selecciona un actor --</option>
+            @for (actor of actors; track actor.id) {
+              <option [value]="actor.id">{{ actor.name }}</option>
+            }
+          </select>
+          @if (actors.length === 0) {
+            <p class="info-message">No hay actores registrados. Crea uno nuevo.</p>
+          }
+        </div>
+      } @else {
+        <!-- Crear nuevo actor -->
+        <div class="form-group">
+          <label for="newActorName">Nombre del Nuevo Actor</label>
+          <input
+            type="text"
+            id="newActorName"
+            formControlName="newActorName"
+            placeholder="Ej: Tom Hanks"
+            autofocus
+          />
+        </div>
+      }
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="btn-cancel"
+          [disabled]="submitting"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="submitting"
+        >
+          {{ submitting ? 'Agregando...' : 'Agregar Actor' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

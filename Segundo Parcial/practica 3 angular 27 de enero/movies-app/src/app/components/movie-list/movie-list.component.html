@@ -1,0 +1,77 @@
+<div class="list-container">
+  <header class="list-header">
+    <h1>Gestión de Películas</h1>
+    <button class="btn-create" (click)="onCreateNew()">
+      + Nueva Película
+    </button>
+  </header>
+
+  @if (loading) {
+    <div class="loading">
+      <p>Cargando películas...</p>
+    </div>
+  } @else if (movies.length === 0) {
+    <div class="empty-state">
+      <p>No hay películas registradas</p>
+      <button class="btn-create" (click)="onCreateNew()">
+        Crear primera película
+      </button>
+    </div>
+  } @else {
+    <div class="movies-grid">
+      @for (movie of movies; track movie.id) {
+        <div class="movie-card">
+          <div class="movie-image">
+            <img [src]="movie.image" [alt]="movie.title" />
+          </div>
+          
+          <div class="movie-content">
+            <h2 class="movie-title">{{ movie.title }}</h2>
+            
+            <div class="movie-meta">
+              <span class="category-badge">
+                {{ movie.category?.name || 'Sin categoría' }}
+              </span>
+              
+              @if (movie.actors && movie.actors.length > 0) {
+                <span class="actors-count">
+                  👤 {{ movie.actors.length }} {{ movie.actors.length === 1 ? 'actor' : 'actores' }}
+                </span>
+              }
+            </div>
+
+            <p class="movie-description">{{ movie.description }}</p>
+
+            @if (movie.actors && movie.actors.length > 0) {
+              <div class="actors-list">
+                <strong>Actores:</strong>
+                <div class="actors-tags">
+                  @for (actor of movie.actors; track actor.id) {
+                    <span class="actor-tag">{{ actor.name }}</span>
+                  }
+                </div>
+              </div>
+            }
+
+            <div class="movie-actions">
+              <button 
+                class="btn-edit" 
+                (click)="onEdit(movie.id)"
+                title="Editar película"
+              >
+                ✏️ Editar
+              </button>
+              <button 
+                class="btn-delete" 
+                (click)="onDelete(movie.id, movie.title)"
+                title="Eliminar película"
+              >
+                🗑️ Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
