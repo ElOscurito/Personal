@@ -1,0 +1,76 @@
+<div class="container">
+  <h1>{{ isEditMode ? 'Editar Película' : 'Nueva Película' }}</h1>
+
+  @if (loading) {
+    <p>Cargando...</p>
+  } @else {
+    <form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Título *</label>
+        <input type="text" formControlName="title" placeholder="Ej: Dark Souls" />
+        @if (isFieldInvalid('title')) {
+          <span class="error">{{ getErrorMessage('title') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>URL de la Imagen *</label>
+        <input type="text" formControlName="cover" placeholder="https://ejemplo.com/imagen.jpg" />
+        @if (isFieldInvalid('cover')) {
+          <span class="error">{{ getErrorMessage('cover') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Descripción *</label>
+        <textarea formControlName="description" rows="4" placeholder="Sinopsis del videojuego"></textarea>
+        @if (isFieldInvalid('description')) {
+          <span class="error">{{ getErrorMessage('description') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Categoría *</label>
+        <div class="category-select">
+          <select formControlName="platform_id">
+            <option value="">Selecciona una plataforma</option>
+            @for (platform of platforms; track platform.id) {
+              <option [value]="platform.id">{{ platform.name }}</option>
+            }
+          </select>
+          <button type="button" class="btn-secondary" (click)="goToNewPlatform()">+ Nueva</button>
+        </div>
+        @if (isFieldInvalid('platform_id')) {
+          <span class="error">{{ getErrorMessage('platform_id') }}</span>
+        }
+      </div>
+
+      @if (isEditMode && gameDevelopers.length > 0) {
+        <div class="form-group">
+          <label>Desarrolladores</label>
+          <div class="actors-list">
+            @for (developer of gameDevelopers; track developer.id) {
+              <div class="actor-item">
+                <span>{{ developer.name }}</span>
+                <button type="button" class="btn-remove" (click)="removeDeveloper(developer.id)">✕</button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (isEditMode) {
+        <div class="form-group">
+          <button type="button" class="btn-secondary" (click)="goToAddDeveloper()">+ Agregar Desarrollador</button>
+        </div>
+      }
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+        <button type="submit" class="btn-submit" [disabled]="submitting">
+          {{ submitting ? 'Guardando...' : (isEditMode ? 'Actualizar' : 'Crear') }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

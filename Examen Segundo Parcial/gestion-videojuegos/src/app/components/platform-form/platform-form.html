@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>Nueva Plataforma</h1>
+
+  <form [formGroup]="platformForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Nombre de la plataforma *</label>
+      <input type="text" formControlName="name" placeholder="Ej: PlayStation, Xbox, Nintendo" />
+      @if (platformForm.get('name')?.invalid && platformForm.get('name')?.touched) {
+        <span class="error">El nombre es requerido (mínimo 2 caracteres)</span>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+      <button type="submit" class="btn-submit" [disabled]="submitting">
+        {{ submitting ? 'Creando...' : 'Crear Plataforma' }}
+      </button>
+    </div>
+  </form>
+</div>

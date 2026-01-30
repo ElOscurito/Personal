@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="header">
+    <h1> Mis Videojuegos</h1>
+    <button class="btn-create" (click)="onCreateNew()">+ Nuevo Videojuego</button>
+  </div>
+
+  @if (loading) {
+    <p>Cargando videojuegos...</p>
+  } @else if (games.length === 0) {
+    <div class="empty-state">
+      <p>No hay juegos aún. ¡Añade el primer juego!</p>
+    </div>
+  } @else {
+    <div class="games-grid">
+      @for (game of games; track game.id) {
+        <div class="game-card">
+          <img [src]="game.cover" [alt]="game.title" />
+          <div class="game-info">
+            <h2>{{ game.title }}</h2>
+            @if (game.platform) {
+              <span class="category">{{ game.platform.name }}</span>
+            }
+            <p class="description">{{ game.description }}</p>
+            @if (game.developers && game.developers.length > 0) {
+              <div class="developers-list">
+                <strong>Desarrolladores:</strong>
+                <div class="developers-tags">
+                  @for (developer of game.developers; track developer.id) {
+                    <span class="developer-tag">{{ developer.name }}</span>
+                  }
+                </div>
+              </div>
+            }
+            <div class="actions">
+              <button class="btn-edit" (click)="onEdit(game.id)">✏️ Editar</button>
+              <button class="btn-delete" (click)="onDelete(game.id, game.title)">🗑️ Eliminar</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

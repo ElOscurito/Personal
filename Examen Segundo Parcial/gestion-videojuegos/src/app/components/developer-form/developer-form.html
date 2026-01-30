@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Agregar Desarrollador</h1>
+
+  <form [formGroup]="developerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Seleccionar Desarrollador Existente</label>
+      <select formControlName="developer_id">
+        <option value="">-- Selecciona un desarrollador --</option>
+        @for (developer of developers; track developer.id) {
+          <option [value]="developer.id">{{ developer.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="divider">
+      <span>O</span>
+    </div>
+
+    <div class="form-group">
+      <label>Crear Nuevo Desarrollador</label>
+      <input type="text" formControlName="new_developer_name" placeholder="Nombre del desarrollador" />
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+      <button type="submit" class="btn-submit" [disabled]="submitting">
+        {{ submitting ? 'Agregando...' : 'Agregar Desarrollador' }}
+      </button>
+    </div>
+  </form>
+</div>
